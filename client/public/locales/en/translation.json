@@ -1,0 +1,28 @@
+{
+    "Navbar": {
+        "Home": "Home",
+        "Create": "Create note"
+    },
+    "NoNotes": {
+        "NoNotes": "No notes"
+    },
+    "CreatePage":{
+        "Head": "Create note",
+        "Placeholder": "Enter title",
+        "Title": "Title",
+        "Text": "Text",
+        "Button": "Create note"
+    },
+    "NoteById":{
+        "Edit": "Edite note",
+        "Delete": "Delete note"
+    },
+    "EditPage":{
+        "Head": "Edit note",
+        "Placeholder": "Enter title",
+        "Title": "Title",
+        "Text": "Text",
+        "Button": "Edit note"
+    }
+
+}
