@@ -23,7 +23,7 @@ function GetNotes({ onNote }) {
         <Container>
             <ListGroup className="mt-3">
                 {(notes.length == 0) ?
-                    <h1 class='No notes' style={{ textAlign: "center" }}>{t('NoNotes.NoNotes')}</h1>
+                    <h1 className='no-notes' style={{ textAlign: "center" }}>{t('NoNotes.NoNotes')}</h1>
                     :
                     notes.map(({ title, id }, index) => (
                         <div key={index}>

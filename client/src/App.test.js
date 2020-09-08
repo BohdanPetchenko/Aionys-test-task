@@ -1,6 +1,4 @@
 const puppeteer = require('puppeteer')
-const faker = require('faker');
-const devices = require('puppeteer/DeviceDescriptors');
 
 const isDebugging = () => {
   const debugging_mode = {
@@ -12,7 +10,7 @@ const isDebugging = () => {
 }
 
 describe('on page load', () => {
-  test('h1 loads correctly', async () => {
+  test('h1 check "no-notes" after page loaded', async () => {
     let browser = await puppeteer.launch({})
     let page = await browser.newPage()
 
@@ -24,9 +22,11 @@ describe('on page load', () => {
       userAgent: ''
     })
     await page.goto('http://localhost:3001/');
-    const html = await page.$eval('.isNotes', e => e.innerHTML);
+    setTimeout( async function (){ let bodyHTML = await page.evaluate(() => document.body.innerHTML);
+    console.log(bodyHTML)
+    const html = await page.$eval('.no-notes', e => e.innerHTML);
     expect(html).toBe('No notes');
-    browser.close();
+    browser.close();}, 2000 )
   }, 16000)
 
 })
