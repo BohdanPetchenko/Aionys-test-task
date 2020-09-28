@@ -1,19 +1,15 @@
-import actionGetNotePromise from './action-get-note-promise'
-import {history} from "../history/index";
-
-
+import { history } from "../history/index";
 
 export default function actionGetNote(id) {
-    
-    return async dispatch => {
-        
-        let data = await dispatch(actionGetNotePromise(id))
-        
-        if (data){ 
-            
-            history.push(`/notes/${data.id}`)
-                       
-        }    
-        
+   
+    return dispatch => {
+
+        fetch(`/notes/${id}`, {
+            method: "GET"
+        })
+            .then(res => res.json())
+            .then(data => dispatch({ type: 'GET_NOTE', state: { noteById: data } }))
+            .then(data => history.push(`/notes/${id}`))
+
     }
 }

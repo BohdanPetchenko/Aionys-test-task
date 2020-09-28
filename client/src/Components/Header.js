@@ -12,8 +12,6 @@ import EditNote from "../Pages/EditNote";
 import NoteById from "../Pages/NoteById";
 
 
-
-
 function Header() {
 
     const { t } = useTranslation();

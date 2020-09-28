@@ -16,5 +16,5 @@ module.exports = function promiseReducer(state = {}, { type, name, status, paylo
             ...state            
         }                      
     }                          
-    return state;
+    
 }

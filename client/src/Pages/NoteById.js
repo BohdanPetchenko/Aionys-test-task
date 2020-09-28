@@ -4,27 +4,24 @@ import { connect } from 'react-redux'
 import actionDeleteNote from '../Actions/action-delete-note'
 
 import d from '../helpers/d'
-import store from '../store/index'
 import { history } from '../history/index'
 import { useTranslation } from 'react-i18next';
 
 
 
-function GetNoteById({ onDelete }, { onEdit }) {
+function GetNoteById(props) {
     const { t } = useTranslation();
-
-    var item = store.getState()
-    var idNote = d`${item}.getNote.payload.id` == undefined ? 0 : d`${item}.getNote.payload.id`
+    debugger
 
     return (
         <Container>
             <Jumbotron className="m-3">
-                <h1>{d`${item}.getNote.payload.title`}</h1>
-                <p>{d`${item}.getNote.payload.text`}</p>
+                <h1>{d`${props}.noteById.title`}</h1>
+                <p>{d`${props}.noteById.text`}</p>
                 <p>
-                    <Button className="mr-1" variant="primary" onClick={e => history.push(`/edite-note/${idNote}`)}>{t('NoteById.Edit')}</Button>
+                    <Button className="mr-1" variant="primary" onClick={e => history.push(`/edite-note/${props.noteById.id}`)}>{t('NoteById.Edit')}</Button>
                     <Button variant="primary" onClick={e => {
-                        onDelete && typeof onDelete === 'function' && onDelete(idNote)
+                        props.onDelete && typeof props.onDelete === 'function' && props.onDelete(props.noteById.id)
                     }}>{t('NoteById.Delete')}
                     </Button>
                 </p>
@@ -33,7 +30,15 @@ function GetNoteById({ onDelete }, { onEdit }) {
     )
 }
 
-const ConnectedDeleteNote = connect(null, { onDelete: actionDeleteNote })(GetNoteById);
+function mapStateToProps(state) {
+    debugger
+    return {
+        noteById: state.noteReducer.get("noteById"),
+        
+    };
+}
+
+const ConnectedDeleteNote = connect(mapStateToProps, { onDelete: actionDeleteNote })(GetNoteById);
 
 
 const App = () =>

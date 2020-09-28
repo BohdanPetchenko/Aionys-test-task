@@ -5,16 +5,13 @@ import { useTranslation } from 'react-i18next';
 
 import actionEditNote from '../Actions/action-edit-note'
 import d from '../helpers/d'
-import store from '../store/index'
 
-
-const EditNote = ({onNote}) => {
+const EditNote = (props) => {
     const { t } = useTranslation();
-
-    var item = store.getState()
-    var idNote = d`${item}.getNote.payload.id` == undefined ? 0 : d`${item}.getNote.payload.id`;    
-    const [title, setTitle] = useState(d`${item}.getNote.payload.title`);
-    const [text, setText] = useState(d`${item}.getNote.payload.text`);
+    debugger
+       
+    const [title, setTitle] = useState(d`${props}.noteById.title`);
+    const [text, setText] = useState(d`${props}.noteById.text`);
     
     return (
         <Container className='container-wrap' style={{ width: '700px' }}>
@@ -31,7 +28,7 @@ const EditNote = ({onNote}) => {
                 </Form.Group>
 
                 <Button variant="outline-secondary" onClick={e => {
-                    onNote && typeof onNote === 'function' && onNote(title, text, idNote)
+                    props.onNote && typeof props.onNote === 'function' && props.onNote(title, text, d`${props}.noteById.id`)
                 }}
                     disabled={!title || !text}
                 >{t('EditPage.Button')}</Button>
@@ -41,7 +38,15 @@ const EditNote = ({onNote}) => {
 
 }
 
-const ConnectedCreateNoteForm = connect(null, { onNote: actionEditNote })(EditNote);
+function mapStateToProps(state) {
+    debugger
+    return {
+        noteById: state.noteReducer.get("noteById"),
+        
+    };
+}
+
+const ConnectedCreateNoteForm = connect(mapStateToProps, { onNote: actionEditNote })(EditNote);
 
 
 const App = () =>
